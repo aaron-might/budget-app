@@ -58,3 +58,4 @@ self.addEventListener('activate', (e) => {
   );
   self.clients.claim();
 });
+window.addEventListener('online', checkDatabase);
