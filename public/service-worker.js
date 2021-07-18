@@ -5,7 +5,7 @@ const FILES_TO_CACHE = [
   '/assets/images/icons/icon-192x192.png',
   '/assets/images/icons/icon-512x512.png',
   '/assets/css/styles.css',
-  '/dt.js',
+  '/db.js',
   '/index.js',
   'https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css',
   'https://cdn.jsdelivr.net/npm/chart.js@2.8.0',
