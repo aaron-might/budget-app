@@ -5,18 +5,18 @@ const bd ='BudgetStore';
 // 
 const request = indexedDB.open('budgetDB', 1);
 request.onupgradeneeded = (e) => {
-    db = e.target.result;
+    dt = e.target.result;
   
-    db.createObjectStore(bs, { autoIncrement: true });
+    dt.createObjectStore(bd, { autoIncrement: true });
   };
   
   request.onerror = (e) => console.log("Error", e.target.errorCode);
 
   const checkDatabase = () => {
     // open a transaction with bs
-    let transaction = db.transaction([bs], 'readwrite');
+    let transaction = dt.transaction([bd], 'readwrite');
     // access your bs object
-    const store = transaction.objectStore(bs);
+    const store = transaction.objectStore(bd);
     const getAll = store.getAll();
 getAll.onsuccess = () =>{
     if(getAll.result.length > 0){
@@ -33,8 +33,8 @@ getAll.onsuccess = () =>{
       // if returned response is not empty
       if (res.length !== 0) {
         // open another transaction
-        transaction = db.transaction([bs], 'readwrite');
-        const currentStore = transaction.objectStore(bs);
+        transaction = dt.transaction([bd], 'readwrite');
+        const currentStore = transaction.objectStore(bd);
 
         currentStore.clear();
       }
