@@ -35,3 +35,29 @@ self.addEventListener('activate', (e) => {
     self.clients.claim();
 });
 
+self.addEventListener('fetch', (e) =>{
+  if (e.request.url.includes('/api/')){
+    console.log(`[Service Worker] Fetch (data)`, e.request.url);
+    e.respondWith(
+      caches
+        .open(DATA_CACHE_NAME).then(cache =>{
+          return fetch(e.request)
+            .then(res=>{
+              if (res.status === 200){
+                cache.put(e.request.url, res.clone());
+              }
+              return res;
+
+            }).catch(err =>cache.match(e.request));
+        }).catch(err =>console.log(err))
+    )
+    return;
+  }
+  e.respondWith(
+      caches.match(e.request)
+        .then(res=>res || fetch(e.request))
+  );
+});
+
+
+
