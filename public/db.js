@@ -5,7 +5,7 @@ const request = window.indexedDB.open("BudgetDB", 1);
 request.onupgradeneeded = function (event) {
   // create object store called "BudgetStore" and set autoIncrement to true
   const db = event.target.result;
-  const BudgetStore = db.createObjectStore("budget", {
+  const BudgetStore = db.createObjectStore("Budget", {
     keyPath: "budgetID", autoIncrement: true
   });
 };
@@ -26,18 +26,18 @@ request.onerror = function (event) {
 function saveRecord(record) {
   console.log(record);
   // create a transaction on the pending db with readwrite access
-  const transaction = db.transaction(["budget"], "readwrite");
+  const transaction = db.transaction(["Budget"], "readwrite");
   // access your pending object store
-  const BudgetStore = transaction.objectStore("budget");
+  const BudgetStore = transaction.objectStore("Budget");
   // add record to your store with add method.
   BudgetStore.add(record);
 }
 
 function checkDatabase() {
   // open a transaction on your pending db
-  const transaction = db.transaction(["budget"], "readwrite");
+  const transaction = db.transaction(["Budget"], "readwrite");
   // access your pending object store
-  const BudgetStore = transaction.objectStore("budget");
+  const BudgetStore = transaction.objectStore("Budget");
   // get all records from store and set to a variable
 
   const getAll = BudgetStore.getAll();
@@ -58,9 +58,9 @@ function checkDatabase() {
         .then((response) => response.json())
         .then(() => {
           // if successful, open a transaction on your pending db
-          const transaction = db.transaction(["budget"], "readwrite");
+          const transaction = db.transaction(["Budget"], "readwrite");
           // access your pending object store
-          const BudgetStore = transaction.objectStore("budget");
+          const BudgetStore = transaction.objectStore("Budget");
           // clear all items in your store
           BudgetStore.clear();
         });
